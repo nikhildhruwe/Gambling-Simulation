@@ -5,7 +5,7 @@ win=1
 loose=0
 stakePerDay=100
 maxDays=20
-
+totalAmount=0
 for (( day=1;$day<=$maxDays;day++ ))
 do
 	stake=$stakePerDay
@@ -22,18 +22,24 @@ do
 
 		if (( $stake==$(($stakePerDay*50/100)) || $stake==$(($stakePerDay +$stakePerDay*50/100)) ))
 		then
-			echo "Resigning for the day"
+			#echo "Resigning for the day"
 			break;
 		fi
 	done
 
-	if (( $stake>$stakePerDay))
-	then
-		differnce=$(($stake-$stakePerDay))
-		echo "Total amount won: $differnce"
-	else
-		difference=$(($stakePerDay-$stake))
-		echo "Total amount lost: $differnce"
-	fi
+	totalAmount=$(( $totalAmount + $stake))
+
+	if (( $stake>$stakePerDay ))
+   then
+      difference=$(($stake-$stakePerDay))
+      echo "day $day ,amount won:    $difference"
+		echo "         ,total amount : $totalAmount"
+   else
+      difference=$(($stakePerDay-$stake))
+		echo "day $day ,amount lost:    $difference"
+      echo "         ,total amount : $totalAmount"
+   fi
+
+
 done
 
