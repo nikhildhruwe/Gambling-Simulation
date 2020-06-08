@@ -4,8 +4,10 @@ betMoney=1
 win=1
 loose=0
 stakePerDay=100
-maxDays=20
+maxDays=30
 totalAmount=0
+winCount=0
+looseCount=0
 for (( day=1;$day<=$maxDays;day++ ))
 do
 	stake=$stakePerDay
@@ -14,32 +16,34 @@ do
 		if (($((RANDOM%2))==$win))
 		then
 			stake=$(($stake + $betMoney))
-			#echo "Won the bet"
+
 		else
 			stake=$(($stake - $betMoney))
-			#echo "Lost the bet"
+
 		fi
+
 
 		if (( $stake==$(($stakePerDay*50/100)) || $stake==$(($stakePerDay +$stakePerDay*50/100)) ))
 		then
-			#echo "Resigning for the day"
+			totalAmount=$(($totalAmount+$stake))
 			break;
 		fi
 	done
 
-	totalAmount=$(( $totalAmount + $stake))
 
-	if (( $stake>$stakePerDay ))
-   then
-      difference=$(($stake-$stakePerDay))
-      echo "day $day ,amount won:    $difference"
-		echo "         ,total amount : $totalAmount"
-   else
-      difference=$(($stakePerDay-$stake))
-		echo "day $day ,amount lost:    $difference"
-      echo "         ,total amount : $totalAmount"
-   fi
-
-
+	if (($day==20))
+	then
+		echo "After playing for 20 Days:"
+		echo "total Amount: $totalAmount "
+		totalStake=$(($stakePerDay*20))
+		if (( $totalAmount>$totalStake ))
+		then
+			difference=$(($totalAmount-$totalStake))
+			echo "Total Amount won : $difference"
+		else
+			 difference=$(($totalStake-$totalAmount))
+			echo "Total Amount lost: $difference"
+		fi
+	fi
 done
 
