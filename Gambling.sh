@@ -29,13 +29,26 @@ do
 
 	if (( $stake>$stakePerDay))
 	then
-		differnce=$(($stake-$stakePerDay))
+		difference=$(($stake-$stakePerDay))
 		day[$day]=won
-		echo "Total amount won: $differnce"
+		echo "Day $day won by : $difference"
 	else
 		difference=$(($stakePerDay-$stake))
 		day[$day]=loose
-		echo "Total amount lost: $differnce"
+
+		echo "Day $day lost by : $difference"
 	fi
 done
 
+count=1
+while (($count<=$maxDays))
+do
+	flag=0
+	if (( day[$count]==won ))
+	then
+		if ((flag))
+	else
+		unlucky++
+	fi
+((count++))
+done
