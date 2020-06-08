@@ -22,7 +22,7 @@ do
 
 		if (( $stake==$(($stakePerDay*50/100)) || $stake==$(($stakePerDay +$stakePerDay*50/100)) ))
 		then
-			echo "Resigning for the day"
+			#echo "Resigning for the day"
 			break;
 		fi
 	done
@@ -30,9 +30,11 @@ do
 	if (( $stake>$stakePerDay))
 	then
 		differnce=$(($stake-$stakePerDay))
+		day[$day]=won
 		echo "Total amount won: $differnce"
 	else
 		difference=$(($stakePerDay-$stake))
+		day[$day]=loose
 		echo "Total amount lost: $differnce"
 	fi
 done
