@@ -4,7 +4,7 @@ betMoney=1
 win=1
 loose=0
 stakePerDay=100
-maxDays=20
+maxDays=30
 
 for (( day=1;$day<=$maxDays;day++ ))
 do
@@ -27,13 +27,17 @@ do
 		fi
 	done
 
-	if (( $stake>$stakePerDay))
-	then
-		difference=$(($stake-$stakePerDay))
-		echo "Day $day won by : $difference"
-	else
-		difference=$(($stakePerDay-$stake))
-		echo "Day $day lost by : $difference"
-	fi
+  totalAmount=$(( $totalAmount + $stake))
+
+   if (( $stake>$stakePerDay ))
+   then
+      difference=$(($stake-$stakePerDay))
+      echo "day $day ,amount won:    $difference"
+      echo "         ,total amount : $totalAmount"
+   else
+      difference=$(($stakePerDay-$stake))
+      echo "day $day ,amount lost:    $difference"
+      echo "         ,total amount : $totalAmount"
+   fi
 done
 
