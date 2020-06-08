@@ -2,10 +2,9 @@
 
 betMoney=1
 win=1
-loose=0
 stakePerDay=100
-maxDays=20
-
+maxDays=30
+totalAmount=0
 
 for (( day=1;$day<=$maxDays;day++ ))
 do
@@ -15,33 +14,39 @@ do
 		if (($((RANDOM%2))==$win))
 		then
 			stake=$(($stake + $betMoney))
-			#echo "Won the bet"
 		else
 			stake=$(($stake - $betMoney))
-			#echo "Lost the bet"
 		fi
 
 		if (( $stake==$(($stakePerDay*50/100)) || $stake==$(($stakePerDay +$stakePerDay*50/100)) ))
 		then
-			#echo "Resigning for the day"
+			totalAmount=$(($totalAmount+$stake))
 			break;
 		fi
 	done
 
 	if (( $stake>$stakePerDay))
 	then
-		difference=$(($stake-$stakePerDay))
+		won[$day]=$day
 		Day[$day]=won
-		echo "Day $day won by : $difference"
 	else
-		difference=$(($stakePerDay-$stake))
-		Day[$day]=loose
-
-		echo "Day $day lost by : $difference"
+		lost[$day]=$day
+		Day[$day]=lost
 	fi
 done
 
-#echo ${Day[@]}
+echo "total Amount at month end: $totalAmount "
+totalStake=$(($stakePerDay*$maxDays))
+if (( $totalAmount>$totalStake ))
+then
+    difference=$(($totalAmount-$totalStake))
+    echo "Amount won : $difference"
+else
+    difference=$(($totalStake-$totalAmount))
+    echo "Amount lost: $difference"
+fi
+echo "Days won : ${won[@]}"
+echo "Days lost: ${lost[@]}"
 
 count=1
 luckyTemp=0
@@ -70,12 +75,12 @@ do
 	fi
 
 	#####  finding unlucky Day
-	if [[ "${Day[$count]}" == "loose" ]]
+	if [[ "${Day[$count]}" == "lost" ]]
    then
       unluckyCount=0
       for ((j=$count;$j<=$maxDays;j++))
       do
-         if [[ "${Day[$j]}" == "loose" ]]
+         if [[ "${Day[$j]}" == "lost" ]]
          then
             ((unluckyCount++))
          else
