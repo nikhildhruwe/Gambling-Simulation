@@ -29,11 +29,11 @@ do
 
 	if (( $stake>$stakePerDay))
 	then
-		differnce=$(($stake-$stakePerDay))
-		echo "Total amount won: $differnce"
+		difference=$(($stake-$stakePerDay))
+		echo "Day $day won by : $difference"
 	else
 		difference=$(($stakePerDay-$stake))
-		echo "Total amount lost: $differnce"
+		echo "Day $day lost by : $difference"
 	fi
 done
 
