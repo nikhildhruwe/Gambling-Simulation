@@ -22,7 +22,7 @@ do
 
 		if (( $stake==$(($stakePerDay*50/100)) || $stake==$(($stakePerDay +$stakePerDay*50/100)) ))
 		then
-			echo "Resigning for the day"
+			#echo "Resigning for the day"
 			break;
 		fi
 	done
