@@ -1,10 +1,11 @@
 #!/bin/bash -x
 
-stake=100
+stakePerDay=100
 betMoney=1
 win=1
 loose=0
 
+stake=$stakePerDay
 if (($((RANDOM%2))==$win))
 then
 	money=$(($stake + $betMoney))
