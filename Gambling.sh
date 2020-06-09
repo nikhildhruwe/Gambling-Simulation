@@ -22,8 +22,10 @@ do
 
       if (( $stake==$(($stakePerDay*50/100)) || $stake==$(($stakePerDay +$stakePerDay*50/100)) ))
       then
-         totalAmount=$(($totalAmount+$stake))
-         break;
+
+			totalAmount=$(($totalAmount+$stake))
+         echo "Day $day : $totalAmount"
+			break;
       fi
    done
    if (($stake>$stakePerDay))
