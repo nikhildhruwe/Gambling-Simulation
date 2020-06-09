@@ -8,9 +8,9 @@ loose=0
 stake=$stakePerDay
 if (($((RANDOM%2))==$win))
 then
-	money=$(($stake + $betMoney))
+	stake=$(($stake + $betMoney))
 	echo "Won the bet"
 else
-	money=$(($stake - $betMoney))
+	stake=$(($stake - $betMoney))
 	echo "Lost the bet"
 fi
